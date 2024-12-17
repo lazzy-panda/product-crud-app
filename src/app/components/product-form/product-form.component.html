@@ -1,0 +1,61 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Редактировать товар' : 'Добавить товар' }}</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <!-- Название товара -->
+    <div class="form-group">
+      <label for="name">Название</label>
+      <input
+        id="name"
+        type="text"
+        class="form-control"
+        formControlName="name"
+        [class.is-invalid]="f['name'].touched && f['name'].invalid"
+      />
+      <div *ngIf="f['name'].touched && f['name'].invalid" class="invalid-feedback">
+        <small *ngIf="f['name'].errors?.['required']">Название обязательно.</small>
+        <small *ngIf="f['name'].errors?.['minlength']">Минимальная длина — 3 символа.</small>
+        <small *ngIf="f['name'].errors?.['maxlength']">Максимальная длина — 50 символов.</small>
+      </div>
+    </div>
+
+    <!-- Цена товара -->
+    <div class="form-group">
+      <label for="price">Цена</label>
+      <input
+        id="price"
+        type="number"
+        class="form-control"
+        formControlName="price"
+        [class.is-invalid]="f['price'].touched && f['price'].invalid"
+      />
+      <div *ngIf="f['price'].touched && f['price'].invalid" class="invalid-feedback">
+        <small *ngIf="f['price'].errors?.['required']">Цена обязательна.</small>
+        <small *ngIf="f['price'].errors?.['min']">Цена должна быть больше 0.</small>
+        <small *ngIf="f['price'].errors?.['max']">Цена не может превышать 1 000 000.</small>
+        <small *ngIf="f['price'].errors?.['pattern']">Цена должна быть числом.</small>
+      </div>
+    </div>
+
+    <!-- Описание товара -->
+    <div class="form-group">
+      <label for="description">Описание</label>
+      <textarea
+        id="description"
+        class="form-control"
+        formControlName="description"
+        [class.is-invalid]="f['description'].touched && f['description'].invalid"
+      ></textarea>
+      <div *ngIf="f['description'].touched && f['description'].invalid" class="invalid-feedback">
+        <small *ngIf="f['description'].errors?.['maxlength']">
+          Описание не должно превышать 200 символов.
+        </small>
+      </div>
+    </div>
+
+    <!-- Кнопки -->
+    <button type="submit" class="btn btn-success" [disabled]="productForm.invalid">
+      {{ isEditMode ? 'Обновить' : 'Создать' }}
+    </button>
+    <button type="button" class="btn btn-secondary ml-2" routerLink="/">Назад</button>
+  </form>
+</div>

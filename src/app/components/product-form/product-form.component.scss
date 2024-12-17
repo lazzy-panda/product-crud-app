@@ -1,0 +1,9 @@
+.invalid-feedback {
+  font-size: 0.9em;
+  color: #dc3545;
+}
+
+input.ng-touched.ng-invalid,
+textarea.ng-touched.ng-invalid {
+  border-color: #dc3545;
+}
